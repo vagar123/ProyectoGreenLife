@@ -12,8 +12,10 @@ conectDB() //Ejecutando la conexion a la base de datos
 
 require('./routes/donation')(app)
 require('./routes/newsletters')(app)
+require('./routes/project')(app)
 require('./routes/user')(app)
 require('./routes/experiences')(app)
+
 
 
 
