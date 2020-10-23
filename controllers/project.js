@@ -32,6 +32,7 @@ exports.update = (req,res) =>{
             message: 'Los datos son obligatorios'
         })
     }
+    //
     const project = {
         name: req.body.name,
         theme: req.body.theme,
