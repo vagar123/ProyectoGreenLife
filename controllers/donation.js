@@ -23,3 +23,33 @@ exports.create = (req, res) => {
         })
     })
 }
+
+
+exports.update = (req, res) =>{
+
+    if(Object.entries(req.body).length==0){
+        return res.status(400).send({
+            message: 'Los datos son obligatorios.'
+        })
+    }
+
+    const donation = {
+        entity: req.body.entity,
+        project: req.body.project,
+        donor: req.body.donor,
+        description: req.body.description,value: req.body.value,paymentSupport: req.body.paymentSupport
+    }
+
+    donationModel.findByIdAndUpdate(req.params.id, donation)
+    .then(
+        (donationUpdate) =>{
+            res.send(donationUpdate)
+        }
+    ).catch(
+        (error) =>{
+            res.status(500).send({
+                message: error.message
+            })
+        }
+    )
+}
