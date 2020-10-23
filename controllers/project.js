@@ -32,7 +32,7 @@ exports.update = (req,res) =>{
             message: 'Los datos son obligatorios'
         })
     }
-    const project = new ProjectModel({
+    const project = {
         name: req.body.name,
         theme: req.body.theme,
         description: req.body.description,
@@ -42,7 +42,7 @@ exports.update = (req,res) =>{
         endDate: req.body.endDate,
         limitPeople: req.body.limitPeople,
         totalPeople: req.body.totalPeople
-    })
+    }
 
     ProjectModel.findByIdAndUpdate(req.params.id, project)
     .then((projectUpdate) => {res.send(projectUpdate)})
