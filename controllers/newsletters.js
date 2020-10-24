@@ -13,7 +13,8 @@ exports.create = (req, res) => {
         title: req.body.title,
         description: req.body.description,
         date: req.body.date,
-        state: req.body.state
+        status: req.body.status,
+        user: req.body.user
     })
 
     newsletters.save()
@@ -37,10 +38,11 @@ exports.update = (req, res) =>{
         title: req.body.title,
         description: req.body.description,
         date: req.body.date,
-        state: req.body.state
+        status: req.body.status,
+        user: req.body.user
     }
 
-    newslettersModel.findByIdAndUpdate(req.params.id, newsletters)
+    newslettersModel.findByIdAndUpdate(req.params.id, newsletters, {new:true})
     .then(
         (newslettersUpdate) =>{
             res.send(newslettersUpdate)

@@ -45,7 +45,7 @@ exports.update = (req,res) =>{
         totalPeople: req.body.totalPeople
     }
 
-    ProjectModel.findByIdAndUpdate(req.params.id, project)
+    ProjectModel.findByIdAndUpdate(req.params.id, project, {new:true})
     .then((projectUpdate) => {res.send(projectUpdate)})
     .catch((error) =>{
         res.status(500).send({

@@ -75,7 +75,7 @@ exports.update = (req, res) => {
      * -los datos nuevos
      */
 
-    UserModel.findByIdAndUpdate(req.params.id, user)
+    UserModel.findByIdAndUpdate(req.params.id, user,{new:true})
         .then(
             (userUpdate) => {
                 res.send(userUpdate)
