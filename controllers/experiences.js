@@ -7,7 +7,7 @@ const ExperiencesModel = require('../models/experiences');
 
 exports.create = (req, res) => {
     /**
-     * El signo ! antes de la condicion significa que lña estamos negando
+     * El signo ! antes de la condicion significa que la estamos negando
      * Validamos que todos los campos del formulario esten llenos
      */
 
@@ -53,7 +53,7 @@ exports.update = (req, res) => {
      *      -El id del usuario => req.params.id es el id que se envia por la URL
      *      -Los datos nuevos
      */
-    ExperiencesModel.findByIdAndUpdate(req.params.id, experiences)
+    ExperiencesModel.findByIdAndUpdate(req.params.id, experiences, {new:true})
         .then(
             (experiencesUpdate) => {
                 res.send(experiencesUpdate);

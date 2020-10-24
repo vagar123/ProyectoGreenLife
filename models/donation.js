@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const donationSchema = new mongoose.Schema({
     entity: {type: String},
-    project: {type: String},
+    project:{type:mongoose.Schema.Types.ObjectId, ref:'Project'},
+    user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
     donor: {type: String, required: true},
     description: {type: String},
     value: {type: Number, required: true},

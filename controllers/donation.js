@@ -11,8 +11,11 @@ exports.create = (req, res) => {
     const donation = new donationModel({
         entity: req.body.entity,
         project: req.body.project,
+        user: req.body.user,
         donor: req.body.donor,
-        description: req.body.description,value: req.body.value,paymentSupport: req.body.paymentSupport
+        description: req.body.description,
+        value: req.body.value,
+        paymentSupport: req.body.paymentSupport,
     })
 
     donation.save()
@@ -36,11 +39,14 @@ exports.update = (req, res) =>{
     const donation = {
         entity: req.body.entity,
         project: req.body.project,
+        user: req.body.user,
         donor: req.body.donor,
-        description: req.body.description,value: req.body.value,paymentSupport: req.body.paymentSupport
+        description: req.body.description,
+        value: req.body.value,
+        paymentSupport: req.body.paymentSupport,  
     }
 
-    donationModel.findByIdAndUpdate(req.params.id, donation)
+    donationModel.findByIdAndUpdate(req.params.id, donation, {new:true})
     .then(
         (donationUpdate) =>{
             res.send(donationUpdate)
