@@ -59,3 +59,43 @@ exports.update = (req, res) =>{
         }
     )
 }
+
+exports.getAll = (req, res) =>{
+    donationModel.find()
+    .populate('project', 'user')
+    .exec()
+    .then((donations)=> res.send(donations))
+    .catch(
+        (error) =>{
+            res.status(500).send({
+                message: error.message
+            })
+        }
+    )
+}
+
+exports.getOne = (req, res) =>{
+    donationModel.findById(req.params.id)
+    .populate('project','user')
+    .exec()
+    .then((donation)=>{res.send(donation)})
+    .catch(
+        (error) =>{
+            res.status(500).send({
+                message: error.message
+            })
+        }
+    )
+}
+
+exports.deleteOne = (req, res) =>{
+    donationModel.findByIdAndRemove(req.params.id)
+    .then((donation)=>{res.send(donation)})
+    .catch(
+        (error) =>{
+            res.status(500).send({
+                message: error.message
+            })
+        }
+    )
+}
