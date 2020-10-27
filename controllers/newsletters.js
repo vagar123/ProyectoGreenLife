@@ -1,4 +1,5 @@
 const newslettersModel = require('../models/newsletters')
+const newsletters = require('../routes/newsletters')
 
 exports.create = (req, res) => {
 
@@ -54,4 +55,47 @@ exports.update = (req, res) =>{
             })
         }
     )
+}
+exports.getAll = (req,res)=>{
+    newslettersModel.find()
+    .populate('user')
+    .exec()//se ejectuta la consulta
+    .then((newsletters)=>res.send(newsletters))
+    .catch(
+        (error)=>{
+            return res.status(500).send({
+                message:error.message
+            })
+        }
+    )
+}
+/**
+ * Metodo para obtener un solo publicación
+ */
+exports.getOne=(req,res)=>{
+    newslettersModel.findById(req.params.id)
+    .populate('user')
+    .exec()//se ejectuta la consulta
+    .then((newsletters)=>res.send(newsletters))
+    .catch(
+        (error)=>{
+            return res.status(500).send({
+                message:error.message
+            })
+        }
+    )
+}
+
+/**
+ * Método para para eliminar un publicación por el id
+ * @param {*} req => Todo lo que se recibe
+ * @param {*} res => Respuesta que devuelve
+ */
+
+exports.deleteOne =(req,res) =>{
+    newslettersModel.findByIdAndRemove(req.params.id)
+    .then((newsletters) => {res.send(newsletters)})
+    .catch((error) => {
+        res.status(500).send({message: error.message})
+    })
 }
