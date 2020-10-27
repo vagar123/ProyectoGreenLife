@@ -26,6 +26,7 @@ exports.create = (req, res) => {
         password: req.body.password,
         role: req.body.role,
         status: req.body.status,
+        project: req.body.project,
     })
 
     user.save()
@@ -63,10 +64,14 @@ exports.update = (req, res) => {
     const user = {
         name: req.body.name,
         lastName: req.body.lastName,
+        email: req.body.email,
         city: req.body.city,
         cellPhone:req.body.cellPhone,
+        userName: req.body.userName,
         password: req.body.password,
+        role: req.body.role,
         status: req.body.status,
+        project: req.body.project,
     }
 
     /**
@@ -88,4 +93,53 @@ exports.update = (req, res) => {
                 })
             }
         )
+}
+
+
+/**
+ * Método para para listar todos los usuarios
+ * @param {*} req => Todo lo que se recibe
+ * @param {*} res => Respuesta que devuelve
+ */
+
+exports.getAll =(req,res) =>{
+    UserModel.find() //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
+    .populate('project')
+    .exec()
+    .then((users) => {res.send(users)})
+    .catch((error) => {
+        res.status(500).send({message: error.message})
+    })
+
+}
+
+/**
+ * Método para para listar un usuario
+ * @param {*} req => Todo lo que se recibe
+ * @param {*} res => Respuesta que devuelve
+ */
+
+exports.getOne =(req,res) =>{
+    
+    UserModel.findById(req.params.id) //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
+    .populate('project')
+    .exec()
+    .then((users) => {res.send(users)})
+    .catch((error) => {
+        res.status(500).send({message: error.message})
+    })
+}
+
+/**
+ * Método para para eliminar un usuario por el id
+ * @param {*} req => Todo lo que se recibe
+ * @param {*} res => Respuesta que devuelve
+ */
+
+exports.deleteOne =(req,res) =>{
+    UserModel.findByIdAndRemove(req.params.id)
+    .then((users) => {res.send(users)})
+    .catch((error) => {
+        res.status(500).send({message: error.message})
+    })
 }
