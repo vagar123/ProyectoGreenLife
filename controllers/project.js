@@ -16,7 +16,8 @@ exports.create = (req, res) => {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         limitPeople: req.body.limitPeople,
-        totalPeople: req.body.totalPeople
+        totalPeople: req.body.totalPeople,
+        status: req.body.status,
     })
     project.save()
         .then((dataProject) => { res.send(dataProject)})
@@ -43,7 +44,8 @@ exports.update = (req,res) =>{
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         limitPeople: req.body.limitPeople,
-        totalPeople: req.body.totalPeople
+        totalPeople: req.body.totalPeople,
+        status: req.body.status,
     }
 
     ProjectModel.findByIdAndUpdate(req.params.id, project, {new:true})
