@@ -53,7 +53,7 @@ exports.update = (req, res) => {
      *      -El id del usuario => req.params.id es el id que se envia por la URL
      *      -Los datos nuevos
      */
-    ExperiencesModel.findByIdAndUpdate(req.params.id, experiences, {new:true})
+    ExperiencesModel.findByIdAndUpdate(req.params.id, experiences, { new: true })
         .then(
             (experiencesUpdate) => {
                 res.send(experiencesUpdate);
@@ -65,4 +65,56 @@ exports.update = (req, res) => {
                 });
             }
         );
+}
+
+//Metodo para listar todos los libros
+exports.getAll = (req, res) => {
+    ExperiencesModel.find()
+        .populate('project')
+        .exec()
+        .then(
+            (experiences) => {
+                res.send(experiences)
+            }
+        ).catch(
+            (error) => {
+                res.status(500).send({
+                    message: error.message
+                });
+            }
+        )
+}
+
+//Metodo para obtener un solo libro por el id
+exports.getOne = (req, res) => {
+    ExperiencesModel.findById(req.params.id)
+        .populate('project')
+        .exec()
+        .then(
+            (experiences) => {
+                res.send(experiences)
+            }
+        ).catch(
+            (error) => {
+                res.status(500).send({
+                    message: error.message
+                });
+            }
+        )
+}
+
+//Metodo para eliminar solo in libro por el id
+exports.deleteOne = (req, res) => {
+    ExperiencesModel.findByIdAndRemove(req.params.id)
+        .then(
+            (experiences) => {
+                res.send(experiences)
+            }
+        ).catch(
+            (error) => {
+                res.status(500).send({
+                    message: error.message
+                });
+            }
+        )
 }
