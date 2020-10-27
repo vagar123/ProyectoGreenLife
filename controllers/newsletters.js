@@ -70,7 +70,7 @@ exports.getAll = (req,res)=>{
     )
 }
 /**
- * Metodo para obtener un solo libro
+ * Metodo para obtener un solo publicación
  */
 exports.getOne=(req,res)=>{
     newslettersModel.findById(req.params.id)
@@ -87,7 +87,7 @@ exports.getOne=(req,res)=>{
 }
 
 /**
- * Método para para eliminar un libro por el id
+ * Método para para eliminar un publicación por el id
  * @param {*} req => Todo lo que se recibe
  * @param {*} res => Respuesta que devuelve
  */
