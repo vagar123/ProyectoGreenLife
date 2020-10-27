@@ -8,7 +8,7 @@ const projectSchema = new mongoose.Schema({
     startDate:  {type: Date,   required:true},
     endDate:    {type: Date,   required:true},
     limitPeople:{type: Boolean,required:true},
-    totalPeople:{type: Number, required:true}
-
+    totalPeople:{type: Number, required:true},
+    status: {type: Boolean, required: true},
 })
 module.exports = mongoose.model('Project',projectSchema)
