@@ -1,5 +1,6 @@
 
 const UserModel = require('../models/user')
+const service = require('../services/index')
 
 /**
  * Método para CREAR un nuevo usuario
@@ -15,7 +16,6 @@ exports.create = (req, res) => {
             menssage: 'Los datos son obligatorios'
         })
     }
-
     const user = new UserModel({
         name: req.body.name,
         lastName: req.body.lastName,
@@ -142,4 +142,24 @@ exports.deleteOne =(req,res) =>{
     .catch((error) => {
         res.status(500).send({message: error.message})
     })
+}
+
+exports.login = (req, res) => {
+    UserModel.findOne({ userName: req.body.userName },
+        (error, dataUser) => {
+            if (dataUser != null) {
+                if (dataUser.password == req.body.password) {
+                    res.send({ token: service.createToken(dataUser) })
+                } else {
+                    res.status(400).send({
+                        message: 'Los datos no coinciden'
+                    })
+                }
+            } else {
+                res.status(400).send({
+                    message: 'Los datos no coinciden'
+                })
+            }
+        }
+    )
 }
