@@ -30,7 +30,7 @@ exports.decodeToken = (token) => {
     const decode = new Promise((resolve,reject) =>{
     try{
     
-        const payload = jwt.decode(token,SECRET)
+        const payload = jwt.decode(token,keytoken)
         // Traducir el token 
         /*Validamos fechas*/
         if (payload.exp <= moment().unix()){
@@ -43,7 +43,7 @@ exports.decodeToken = (token) => {
     }catch{
         reject({
             status: 500,
-            message: 'E token es invalido'
+            message: 'El token es invalido'
         })}
         
     })
