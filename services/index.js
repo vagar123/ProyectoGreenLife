@@ -1,7 +1,9 @@
 
 const jwt = require('jwt-simple')
 const moment = require('moment')
-const SECRET = 'KeycodeSecretTokenUser'
+const config = require ('../config')
+//
+const keytoken = config.keytoken
 
 exports.createToken = (dataUser) =>{
     const payload = {
@@ -20,7 +22,7 @@ exports.createToken = (dataUser) =>{
         project: dataUser.project,
         
     }
-    return jwt.encode(payload,SECRET)
+    return jwt.encode(payload,keytoken)
 }
 
 
