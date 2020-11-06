@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
         password: { type: String, required: true },
         role: { type: String, required: true },
         status: { type: Boolean, required: true },
-        project:{type:mongoose.Schema.Types.ObjectId, ref:'Project'}
     }
 )
 

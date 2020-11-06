@@ -10,5 +10,8 @@ const projectSchema = new mongoose.Schema({
     limitPeople:{type: Boolean,required:true},
     totalPeople:{type: Number, required:true},
     status: {type: Boolean, required: true},
+    user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
+    category:{type:mongoose.Schema.Types.ObjectId, ref:'Category'}
+
 })
 module.exports = mongoose.model('Project',projectSchema)

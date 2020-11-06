@@ -1,6 +1,5 @@
 
-const UserModel = require('../models/user')
-const service = require('../services/index')
+const CategoryModel = require('../models/user')
 
 /**
  * Método para CREAR un nuevo usuario
@@ -16,23 +15,14 @@ exports.create = (req, res) => {
             menssage: 'Los datos son obligatorios'
         })
     }
-    const user = new UserModel({
+    const category = new CategoryModel({
         name: req.body.name,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        city: req.body.city,
-        cellPhone:req.body.cellPhone,
-        userName: req.body.userName,
-        password: req.body.password,
-        role: req.body.role,
-        status: req.body.status,
-        
     })
 
-    user.save()
-        .then((dataUser) => {
+    category.save()
+        .then((dataCategory) => {
 
-            res.send(dataUser)
+            res.send(dataCategory)
         })
         .catch((error) => {
             res.status(500).send({
@@ -61,17 +51,8 @@ exports.update = (req, res) => {
         })
     }
 
-    const user = {
-        name: req.body.name,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        city: req.body.city,
-        cellPhone:req.body.cellPhone,
-        userName: req.body.userName,
-        password: req.body.password,
-        role: req.body.role,
-        status: req.body.status,
-
+    const category = {
+        name: req.body.name,    
     }
 
     /**
@@ -80,10 +61,10 @@ exports.update = (req, res) => {
      * -los datos nuevos
      */
 
-    UserModel.findByIdAndUpdate(req.params.id, user,{new:true})
+    CategoryModel.findByIdAndUpdate(req.params.id, category,{new:true})
         .then(
-            (userUpdate) => {
-                res.send(userUpdate)
+            (CategoryUpdate) => {
+                res.send(CategoryUpdate)
             }
         )
         .catch(
@@ -103,8 +84,10 @@ exports.update = (req, res) => {
  */
 
 exports.getAll =(req,res) =>{
-    UserModel.find() //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
-    .then((users) => {res.send(users)})
+    CategoryModel.find() //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
+    .populate('project')
+    .exec()
+    .then((categorys) => {res.send(categorys)})
     .catch((error) => {
         res.status(500).send({message: error.message})
     })
@@ -119,8 +102,8 @@ exports.getAll =(req,res) =>{
 
 exports.getOne =(req,res) =>{
     
-    UserModel.findById(req.params.id) //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
-    .then((users) => {res.send(users)})
+    CategoryModel.findById(req.params.id) //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
+    .then((categorys) => {res.send(categorys)})
     .catch((error) => {
         res.status(500).send({message: error.message})
     })
@@ -130,32 +113,12 @@ exports.getOne =(req,res) =>{
  * Método para para eliminar un usuario por el id
  * @param {*} req => Todo lo que se recibe
  * @param {*} res => Respuesta que devuelve
- */
+
 
 exports.deleteOne =(req,res) =>{
-    UserModel.findByIdAndRemove(req.params.id)
-    .then((users) => {res.send(users)})
+    CategoryModel.findByIdAndRemove(req.params.id)
+    .then((categorys) => {res.send(categorys)})
     .catch((error) => {
         res.status(500).send({message: error.message})
     })
-}
-
-exports.login = (req, res) => {
-    UserModel.findOne({ userName: req.body.userName },
-        (error, dataUser) => {
-            if (dataUser != null) {
-                if (dataUser.password == req.body.password) {
-                    res.send({ token: service.createToken(dataUser) })
-                } else {
-                    res.status(400).send({
-                        message: 'Los datos no coinciden'
-                    })
-                }
-            } else {
-                res.status(400).send({
-                    message: 'Los datos no coinciden'
-                })
-            }
-        }
-    )
-}
+}*/
