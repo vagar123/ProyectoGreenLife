@@ -18,6 +18,8 @@ exports.create = (req, res) => {
         limitPeople: req.body.limitPeople,
         totalPeople: req.body.totalPeople,
         status: req.body.status,
+        user: req.body.user,
+        category: req.body.category
     })
     project.save()
         .then((dataProject) => { res.send(dataProject)})
@@ -46,6 +48,8 @@ exports.update = (req,res) =>{
         limitPeople: req.body.limitPeople,
         totalPeople: req.body.totalPeople,
         status: req.body.status,
+        user: req.body.user,
+        category: req.body.category
     }
 
     ProjectModel.findByIdAndUpdate(req.params.id, project, {new:true})
@@ -60,12 +64,16 @@ exports.update = (req,res) =>{
 // metodo para obtener todos los proyectos
 exports.getAll = (req,res) =>{
     ProjectModel.find()
+    .populate('category','user')
+    .exec()
     .then ( (projects) =>{ res.send(projects)})
     .catch ( (error) =>{ res.status(500).send({message: error.message})})
 }
 // metodo para obtener un projecto
 exports.getOne = (req,res) =>{
     ProjectModel.findById(req.params.id)
+    .populate('category','user')
+    .exec()
     .then ( (project) => { res.send(project)})
     .catch ( ( error) =>{ res.status(500).send({ message: error.message})})
 }

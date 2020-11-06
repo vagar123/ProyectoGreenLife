@@ -19,8 +19,7 @@ exports.createToken = (dataUser) =>{
         password: dataUser.password,
         role: dataUser.role,
         status: dataUser.status,
-        project: dataUser.project,
-        
+   
     }
     return jwt.encode(payload,keytoken)
 }

@@ -1,5 +1,4 @@
 const newslettersModel = require('../models/newsletters')
-const newsletters = require('../routes/newsletters')
 
 exports.create = (req, res) => {
 
