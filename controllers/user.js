@@ -25,7 +25,7 @@ exports.create = (req, res) => {
         userName: req.body.userName,
         password: req.body.password,
         role: req.body.role,
-        status: req.body.status,
+        status: req.body.status, 
         
     })
 
@@ -70,7 +70,7 @@ exports.update = (req, res) => {
         userName: req.body.userName,
         password: req.body.password,
         role: req.body.role,
-        status: req.body.status,
+      status: req.body.status, 
 
     }
 

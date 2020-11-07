@@ -1,5 +1,5 @@
 
-const CategoryModel = require('../models/user')
+const CategoryModel = require('../models/category')
 
 /**
  * Método para CREAR un nuevo usuario
@@ -85,8 +85,7 @@ exports.update = (req, res) => {
 
 exports.getAll =(req,res) =>{
     CategoryModel.find() //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
-    .populate('project')
-    .exec()
+    
     .then((categorys) => {res.send(categorys)})
     .catch((error) => {
         res.status(500).send({message: error.message})
@@ -103,7 +102,8 @@ exports.getAll =(req,res) =>{
 exports.getOne =(req,res) =>{
     
     CategoryModel.findById(req.params.id) //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
-    .then((categorys) => {res.send(categorys)})
+    
+    .then((category) => {res.send(category)})
     .catch((error) => {
         res.status(500).send({message: error.message})
     })
