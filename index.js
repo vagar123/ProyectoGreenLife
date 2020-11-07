@@ -17,7 +17,7 @@ require('./routes/newsletters')(app)
 require('./routes/project')(app)
 require('./routes/user')(app)
 require('./routes/experiences')(app)
-
+require('/.routes/category')(app)
 
 
 
