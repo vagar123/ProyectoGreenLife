@@ -12,7 +12,6 @@ exports.create = (req, res) => {
         entity: req.body.entity,
         project: req.body.project,
         user: req.body.user,
-        donor: req.body.donor,
         description: req.body.description,
         value: req.body.value,
         paymentSupport: req.body.paymentSupport,
@@ -40,7 +39,6 @@ exports.update = (req, res) =>{
         entity: req.body.entity,
         project: req.body.project,
         user: req.body.user,
-        donor: req.body.donor,
         description: req.body.description,
         value: req.body.value,
         paymentSupport: req.body.paymentSupport,  
@@ -62,7 +60,7 @@ exports.update = (req, res) =>{
 
 exports.getAll = (req, res) =>{
     donationModel.find()
-    .populate('project', 'user')
+    .populate('project').populate('user')
     .exec()
     .then((donations)=> res.send(donations))
     .catch(
@@ -76,7 +74,7 @@ exports.getAll = (req, res) =>{
 
 exports.getOne = (req, res) =>{
     donationModel.findById(req.params.id)
-    .populate('project','user')
+    .populate('project').populate('user')
     .exec()
     .then((donation)=>{res.send(donation)})
     .catch(

@@ -64,7 +64,7 @@ exports.update = (req,res) =>{
 // metodo para obtener todos los proyectos
 exports.getAll = (req,res) =>{
     ProjectModel.find()
-    .populate('category','user')
+    .populate('category').populate('user')
     .exec()
     .then ( (projects) =>{ res.send(projects)})
     .catch ( (error) =>{ res.status(500).send({message: error.message})})
@@ -72,7 +72,7 @@ exports.getAll = (req,res) =>{
 // metodo para obtener un projecto
 exports.getOne = (req,res) =>{
     ProjectModel.findById(req.params.id)
-    .populate('category','user')
+    .populate('category').populate('user')
     .exec()
     .then ( (project) => { res.send(project)})
     .catch ( ( error) =>{ res.status(500).send({ message: error.message})})
