@@ -1,7 +1,7 @@
 
 const UserModel = require('../models/user')
 const service = require('../services/index')
-
+const nodemailer = require ('nodemailer')
 /**
  * Método para CREAR un nuevo usuario
  * @param {*} req => Todo lo que enviamos desde el body (formulario)
@@ -31,7 +31,8 @@ exports.create = (req, res) => {
 
     user.save()
         .then((dataUser) => {
-
+            const contentEmail = '<h1>Bienvenido a GreenLife 🥳💌</h1> Nos alegra que seas parte de Green Life --Esta es una prueba--'
+            sendEmailInfo(dataUser.email, 'Bienvenid@! GreenLife', contentEmail, '', res)
             res.send(dataUser)
         })
         .catch((error) => {
@@ -158,4 +159,58 @@ exports.login = (req, res) => {
             }
         }
     )
+}
+
+exports.SendEmail=(req,res) =>{
+    const email = req.query.email
+    const name = req.query.name
+    requirements(email,name,res)
+}
+
+
+const requirements = (email,name,res) => {
+
+    const contentEmail = `<h2>Mensaje desde el formulario de contacto</h2>
+        Hola, hemos recibido un mensaje de ${name} con el correo ${email}, por favor comunicate.`
+
+        sendEmailInfo('green.life.artemisas@gmail.com','Formulario contacto', contentEmail,'',res)
+    }
+
+const sendEmailInfo = (receiver, subject, contentEmail, contentTxt = '', res) => {
+    const transport = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: 'green.life.artemisas@gmail.com',
+            pass: 'greenlife12345'
+        },
+            tls: {
+                // do not fail on invalid certs
+                rejectUnauthorized: false
+            }
+    })
+    
+
+
+    const configEmail = {
+        from: 'Green Life',
+        to: receiver,
+        subject: subject,
+        text: contentTxt,
+        html: contentEmail
+    }
+
+    transport.sendMail(configEmail, (error, info) => {
+        if (error){
+            res.status(500).send({
+                message: 'Error al enviar el correo', error
+            })
+        }else{
+            res.status(200).send({
+                message: 'Correo enviado correctamente'
+            }) 
+        }
+    })
+
 }
