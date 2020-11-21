@@ -1,7 +1,9 @@
 
 const UserModel = require('../models/user')
 const service = require('../services/index')
-const nodemailer = require ('nodemailer')
+const nodemailer = require('nodemailer')
+const bcript = require('bcryptjs')
+
 /**
  * Método para CREAR un nuevo usuario
  * @param {*} req => Todo lo que enviamos desde el body (formulario)
@@ -23,7 +25,8 @@ exports.create = (req, res) => {
         city: req.body.city,
         cellPhone:req.body.cellPhone,
         userName: req.body.userName,
-        password: req.body.password,
+        /* password: req.body.password, */
+        password: bcript.hashSync(req.body.password),
         role: req.body.role,
         status: req.body.status, 
         
@@ -69,9 +72,9 @@ exports.update = (req, res) => {
         city: req.body.city,
         cellPhone:req.body.cellPhone,
         userName: req.body.userName,
-        password: req.body.password,
+        /* password: req.body.password, */
         role: req.body.role,
-      status: req.body.status, 
+        status: req.body.status, 
 
     }
 
@@ -145,7 +148,8 @@ exports.login = (req, res) => {
     UserModel.findOne({ userName: req.body.userName },
         (error, dataUser) => {
             if (dataUser != null) {
-                if (dataUser.password == req.body.password) {
+                /* if (dataUser.password == req.body.password) { */
+                if( bcript.compareSync(req.body.password, dataUser.password) ){
                     res.send({ token: service.createToken(dataUser) })
                 } else {
                     res.status(400).send({
