@@ -22,7 +22,8 @@ exports.create = (req, res) => {
         name: req.body.name,
         description: req.body.description,
         evidence: req.body.evidence,
-        project: req.body.project
+        project: req.body.project,
+        user: req.body.user
     });
 
     experiences.save()
