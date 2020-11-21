@@ -16,6 +16,6 @@ const conectDB = ()=>{
 }
 /**
  * module.exports
- * Permite exportar una funcion para que pueda ser utilizada por otra parte del proyecto
+ * Permite exportar una funcion para que pueda ser utilizada en otra parte del proyecto
  */
 module.exports = { conectDB }
