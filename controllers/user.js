@@ -165,7 +165,7 @@ exports.login = (req, res) => {
     )
 }
 
-exports.SendEmail=(req,res) =>{
+exports.sendEmail=(req,res) =>{
     const email = req.query.email
     const name = req.query.name
     requirements(email,name,res)
