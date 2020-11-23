@@ -7,7 +7,7 @@ module.exports=(app) => {
     app.get('/user/getOne/:id', user.getOne)
     app.delete('/user/deleteOne/:id',user.deleteOne)
     app.post('/login' , user.login)
-    app.get('/sendEmail', user.SendEmail)
+    app.get('/sendEmail', user.sendEmail)
 }
 
 /**:id => Con los dos punto estamos indicando que es un parametro */
