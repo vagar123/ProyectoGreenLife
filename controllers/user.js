@@ -154,12 +154,9 @@ exports.login = (req, res) => {
                 } else {
                     res.status(400).send({
                         message: 'Los datos no coinciden'
+
                     })
                 }
-            } else {
-                res.status(400).send({
-                    message: 'Los datos no coinciden'
-                })
             }
         }
     )
@@ -218,3 +215,4 @@ const sendEmailInfo = (receiver, subject, contentEmail, contentTxt = '', res) =>
     })
 
 }
+ 
