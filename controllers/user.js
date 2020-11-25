@@ -107,7 +107,9 @@ exports.update = (req, res) => {
  */
 
 exports.getAll =(req,res) =>{
-    UserModel.find() //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
+    let username = new RegExp(`.*${req.query.searchBy || ''}.* `)
+
+    UserModel.find({name: username}) //Método el cual nos permite traer los datos de la coleccion con a que se tiene la relacion
     .then((users) => {res.send(users)})
     .catch((error) => {
         res.status(500).send({message: error.message})
