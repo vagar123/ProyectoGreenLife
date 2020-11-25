@@ -59,7 +59,8 @@ exports.update = (req, res) =>{
 }
 
 exports.getAll = (req, res) =>{
-    donationModel.find()
+    let Donationentity = new RegExp(`.*${req.query.searchBy || ''}.*`)
+    donationModel.find({entity: Donationentity})
     .populate('project').populate('user')
     .exec()
     .then((donations)=> res.send(donations))
