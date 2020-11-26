@@ -65,7 +65,13 @@ exports.update = (req, res) => {
         })
     }
 
-    const user = {
+    let pass = {}
+    if (req.body.password != 'nocambiocontra'){
+        pass = {password: bcript.hashSync(req.body.password)}
+    }
+
+
+    let user = {
         name: req.body.name,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -73,10 +79,13 @@ exports.update = (req, res) => {
         cellPhone:req.body.cellPhone,
         userName: req.body.userName,
         /* password: req.body.password, */
+        /* password: bcript.hashSync(req.body.password) */
         role: req.body.role,
         status: req.body.status, 
-
     }
+
+    user = Object.assign(user,pass)
+    console.log(user)
 
     /**
      * findByIdAndUpdate => Método de mongoose que permite buscar por id y actualicar un usuario. Tiene los parametros:
